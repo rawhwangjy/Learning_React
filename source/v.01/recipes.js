@@ -1,3 +1,24 @@
+/*
+    // 데이터는 조리법 객체의 배열이다.
+    var data = [...]
+
+    // 조리법 하나를 표현하는 상태가 없는 함수형 컴포넌트다.
+    const Recipe = (props) => (
+        ...
+    )
+
+    // 조리법으로 이러우진 메뉴를 표현하는 상태가 없는 함수형 컴포넌트다.
+    const Menu = (props) => (
+        ...
+    )
+
+    // ReactDOM.render를 호출해서 Menu를 현재의 DOM 안에 렌더링한다.
+    ReactDOM.render(
+        <Menu recipes={data} title="맛있는 조리법" />,
+        document.getElementById("react-container")
+    )
+*/
+
 const data = [
     {
         "name": "구운 연어",
@@ -35,30 +56,30 @@ const data = [
     }
 ]
 
-const Recipe = ({name, ingredients, steps}) =>
-    <section id={name.toLowerCase().replace(/ /g, "-")}>
-        <h1>{name}</h1>
+const Recipe = (props) =>
+    <section id={props.name.toLowerCase().replace(/ /g, "-")}>
+        <h1>{props.name}</h1>
         <ul className="ingredients">
-            {ingredients.map((ingredient, i) => 
+            {props.ingredients.map((ingredient, i) => 
                 <li key={i}>{ingredient.name}</li>
             )}
         </ul>
         <section className="instructions">
             <h2>조리 절차</h2>
-            {steps.map((step, i) => 
+            {props.steps.map((step, i) => 
                 <p key={i}>{step}</p>
             )}
         </section>
     </section>
 
-const Menu = ({title, recipes}) => 
+const Menu = (props) => 
     <article>
         <header>
-                <h1>{title}</h1>
+            <h1>{props.title}</h1>
         </header>
         <div className="recipes">
-            {recipes.map((recipe, i) =>
-                <Recipe key={i} {...recipe} />
+            {props.recipes.map((recipe, i) =>
+                <Recipe key={i} name={recipe.name} ingredients={recipe.ingredients} steps={recipe.steps} />
             )}
         </div>
     </article>
